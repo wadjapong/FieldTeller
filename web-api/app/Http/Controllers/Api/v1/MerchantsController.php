@@ -61,7 +61,6 @@ class MerchantsController extends Controller
             'settlement_account'=> 'required',
             'settlement_account_network'=> 'required',
             'settlement_account_number'=> 'required',
-            'creator_id'=> 'required',            
         ]);
 
         $merch = $request->isisMethod('put') ?
@@ -82,6 +81,8 @@ class MerchantsController extends Controller
         $merch->pickup_charge = $request->input('pickup_charge');
         $merch->pickup_charge = $request->input('pickup_charge');
         $merch->is_active = $request->input('is_active');
+        $dist->approval_status = $request->input('approval_status');
+        $dist->decline_reason = $request->input('decline_reason');
         $merch->creator_id = $request->user();
         $merch->approver_id = $request->input('approver_id');
 

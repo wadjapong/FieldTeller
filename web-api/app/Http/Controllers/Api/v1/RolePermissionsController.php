@@ -14,9 +14,9 @@ class RolePermissionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($role_id)
     {
-        $roles = RolePermissions::with(['permissions'])->get();
+        $roles = RolePermissions::where('role_id', $role_id)->with('permission')->get();
         return new RolePermissionsResource($roles);
     }
 
@@ -40,17 +40,17 @@ class RolePermissionsController extends Controller
     {
         $request->validate([
             'role_id'=> 'required',
-            'permission_id'=> 'required',
+            'permissions'=> 'required|array',
         ]);
-
-        $obj = $request->isMethod('put') ?
-        RolePermissions::findOrFail($request->input('id')) : new RolePermissions;
         
-        $obj->role_id = $request->input('role_id');
-        $obj->permission_id = $request->input('permission_id');
-
-        if ($obj->save()) {
-            return new RolePermissionsResource($obj);
+        foreach($request->permissions as $permission_id) {
+            $obj = new RolePermissions;
+            $count = RolePermissions::where('role_id', $request->input('role_id'))->where('permission_id', $permission_id)->count();
+            if ($count == 0) {
+                $obj->role_id = $request->input('role_id');
+                $obj->permission_id = $permission_id;
+                $obj->save();
+            }
         }
     }
 

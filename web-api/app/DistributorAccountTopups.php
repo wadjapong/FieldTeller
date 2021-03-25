@@ -11,7 +11,7 @@ class DistributorAccountTopups extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function distributor(): BelongsTo
+    public function distributor()
     {
         return $this->belongsTo(Distributors::class, 'distributor_id', 'id');
     }
@@ -21,7 +21,7 @@ class DistributorAccountTopups extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }

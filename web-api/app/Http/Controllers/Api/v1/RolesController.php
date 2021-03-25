@@ -46,6 +46,8 @@ class RolesController extends Controller
         Roles::findOrFail($request->input('id')) : new Roles;
 
         $role->name = $request->input('name');
+        $dist->approval_status = $request->input('approval_status');
+        $dist->decline_reason = $request->input('decline_reason');
 
         if ($role->save()) {
             return new RoleResource($role);

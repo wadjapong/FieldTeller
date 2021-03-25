@@ -11,7 +11,7 @@ class ClientPairs extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    // public function field_teller(): BelongsToMany
+    // public function field_teller()
     // {
     //     return $this->belongsToMany(FieldTellers::class, 'client_pairs', 'field_teller_id', 'id');
     // }
@@ -21,7 +21,7 @@ class ClientPairs extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    // public function merchant(): BelongsToMany
+    // public function merchant()
     // {
     //     return $this->belongsToMany(Merchants::class, 'client_pairs', 'merchant_id', 'role_id');
     // }
@@ -31,7 +31,7 @@ class ClientPairs extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function field_teller(): BelongsTo
+    public function field_teller()
     {
         return $this->belongsTo(FieldTellers::class, 'field_teller_id', 'id');
     }
@@ -41,7 +41,7 @@ class ClientPairs extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function merchant(): BelongsTo
+    public function merchant()
     {
         return $this->belongsTo(Merchants::class, 'merchant_id', 'id');
     }
@@ -51,7 +51,7 @@ class ClientPairs extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function field_tellers(): BelongsToMany
+    public function field_tellers()
     {
         return $this->belongsToMany(FieldTellers::class, 'client_pairs', 'merchant_id', 'field_teller_id');
     }
@@ -61,7 +61,7 @@ class ClientPairs extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function merchants(): BelongsToMany
+    public function merchants()
     {
         return $this->belongsToMany(Merchants::class, 'client_pairs', 'field_teller_id', 'merchant_id');
     }
@@ -71,7 +71,7 @@ class ClientPairs extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }

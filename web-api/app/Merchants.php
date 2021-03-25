@@ -12,13 +12,13 @@ class Merchants extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function creater(): BelongsTo
+    public function creater()
     {
         return $this->belongsTo(User::class, 'creator_id', 'id');
     }
 
     
-    public function approver(): BelongsTo
+    public function approver()
     {
         return $this->belongsTo(User::class, 'approver_id', 'id');
     }

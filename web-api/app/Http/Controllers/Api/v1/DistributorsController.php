@@ -56,7 +56,6 @@ class DistributorsController extends Controller
             'office_phone'=> 'required|integer',
             'email'=> 'required|string',
             'topup_discount'=> 'required',
-            'creator_id'=> 'required',            
         ]);
 
         $dist = $request->isisMethod('put') ?
@@ -76,6 +75,8 @@ class DistributorsController extends Controller
         $dist->email = $request->input('email');
         $dist->topup_discount = $request->input('topup_discount');
         $dist->is_active = $request->input('is_active');
+        $dist->approval_status = $request->input('approval_status');
+        $dist->decline_reason = $request->input('decline_reason');
         $dist->creator_id = $request->user();
         $dist->approver_id = $request->input('approver_id');
 

@@ -16,6 +16,8 @@ class CreateUserRolesTable extends Migration
         Schema::create('user_roles', function (Blueprint $table) {
             $table->id();
 
+            $table->enum('approval_status', ['pending', 'accepted', 'declined']);
+            $table->string('decline_reason')->nullable();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('role_id')->unsigned();

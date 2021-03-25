@@ -11,7 +11,7 @@ class DistributorFloatTransfers extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function sender(): BelongsTo
+    public function sender()
     {
         return $this->belongsTo(Distributors::class, 'sender_id', 'id');
     }
@@ -21,7 +21,7 @@ class DistributorFloatTransfers extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function receiver(): BelongsTo
+    public function receiver()
     {
         return $this->belongsTo(Distributors::class, 'receiver_id', 'id');
     }
@@ -31,7 +31,7 @@ class DistributorFloatTransfers extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function creator(): BelongsTo
+    public function creator()
     {
         return $this->belongsTo(User::class, 'creator_id', 'id');
     }
@@ -41,7 +41,7 @@ class DistributorFloatTransfers extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function approver(): BelongsTo
+    public function approver()
     {
         return $this->belongsTo(User::class, 'approver_id', 'id');
     }

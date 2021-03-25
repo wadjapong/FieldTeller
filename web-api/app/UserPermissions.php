@@ -11,7 +11,7 @@ class UserPermissions extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user_type(): BelongsTo
+    public function user_type()
     {
         return $this->belongsTo(Role::class, 'role_id', 'id');
     }

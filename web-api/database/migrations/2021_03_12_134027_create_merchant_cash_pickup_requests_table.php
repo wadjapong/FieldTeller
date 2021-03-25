@@ -22,6 +22,8 @@ class CreateMerchantCashPickupRequestsTable extends Migration
             $table->enum('transaction_status', ['Request Pending', 'Pickup Pending', 'Completed'])->default('Request Pending');
             $table->dateTime('responded_at')->nullable();
             $table->dateTime('completed_at')->nullable();
+            $table->enum('approval_status', ['pending', 'accepted', 'declined']);
+            $table->string('decline_reason')->nullable();
 
             $table->bigInteger('merchant_id')->unsigned();
             $table->foreign('merchant_id')->references('id')->on('merchants');

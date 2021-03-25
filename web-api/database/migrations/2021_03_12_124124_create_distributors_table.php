@@ -28,6 +28,8 @@ class CreateDistributorsTable extends Migration
             $table->string('email');
             $table->decimal('topup_discount', 3, 2);
             $table->boolean('is_active')->default(false);
+            $table->enum('approval_status', ['pending', 'accepted', 'declined']);
+            $table->string('decline_reason')->nullable();
 
             $table->foreign('parent_id')->references('id')->on('distributors');
             $table->bigInteger('creator_id')->unsigned();

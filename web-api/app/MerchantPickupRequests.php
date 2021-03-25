@@ -11,7 +11,7 @@ class MerchantPickupRequests extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function merchant(): BelongsTo
+    public function merchant()
     {
         return $this->belongsTo(Merchants::class, 'merchants_id', 'id');
     }
@@ -21,7 +21,7 @@ class MerchantPickupRequests extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function field_teller(): BelongsTo
+    public function field_teller()
     {
         return $this->belongsTo(FieldTellers::class, 'field_teller_id', 'id');
     }
@@ -31,7 +31,7 @@ class MerchantPickupRequests extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }

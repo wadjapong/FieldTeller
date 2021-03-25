@@ -59,8 +59,7 @@ class FieldTellersController extends Controller
             'email'=> 'required|string',
             'cash_carrying_limit'=> 'required',
             'topup_discount'=> 'required',
-            'is_active'=> 'required|boolean',
-            'creator_id'=> 'required',            
+            'is_active'=> 'required|boolean',  
         ]);
 
         $ft = $request->isisMethod('put') ?
@@ -80,6 +79,8 @@ class FieldTellersController extends Controller
         $ft->email = $request->input('email');
         $ft->topup_discount = $request->input('topup_discount');
         $ft->is_active = $request->input('is_active');
+        $dist->approval_status = $request->input('approval_status');
+        $dist->decline_reason = $request->input('decline_reason');
         $ft->creator_id = $request->user();
         $ft->approver_id = $request->input('approver_id');
 

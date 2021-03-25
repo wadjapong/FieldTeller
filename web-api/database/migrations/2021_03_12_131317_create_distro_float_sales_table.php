@@ -21,6 +21,8 @@ class CreateDistroFloatSalesTable extends Migration
             $table->decimal('balance_after', 10, 2);
             $table->dateTime('transaction_date');
             $table->string('transaction_status');
+            $table->enum('approval_status', ['pending', 'accepted', 'declined']);
+            $table->string('decline_reason')->nullable();
 
             $table->bigInteger('distributor_id')->unsigned();
             $table->foreign('distributor_id')->references('id')->on('distributors');

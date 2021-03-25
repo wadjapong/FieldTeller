@@ -11,7 +11,7 @@ class FieldTellerCommissionSettlements extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function sender(): BelongsTo
+    public function sender()
     {
         return $this->belongsTo(FieldTellers::class, 'sender_id', 'id');
     }
@@ -21,7 +21,7 @@ class FieldTellerCommissionSettlements extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function receiver(): BelongsTo
+    public function receiver()
     {
         return $this->belongsTo(FieldTellers::class, 'receiver_id', 'id');
     }

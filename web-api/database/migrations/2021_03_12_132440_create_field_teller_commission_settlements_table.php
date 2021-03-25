@@ -23,6 +23,8 @@ class CreateFieldTellerCommissionSettlementsTable extends Migration
             $table->decimal('transaction_amount', 10, 2);
             $table->dateTime('transaction_date');
             $table->string('transaction_status');
+            $table->enum('approval_status', ['pending', 'accepted', 'declined']);
+            $table->string('decline_reason')->nullable();
 
             $table->bigInteger('sender_id')->unsigned();
             $table->foreign('sender_id')->references('id')->on('field_tellers');

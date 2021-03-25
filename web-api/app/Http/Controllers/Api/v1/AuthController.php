@@ -61,53 +61,93 @@ class AuthController extends Controller
         return $response;
     }
 
-    public function register_all(Request $request)
+    public function register(Request $request)
     {
         $request->validate([
-            'firstname' => 'required|string|max:125',
-            'lastname' => 'required|string|max:125',
-            'role' => 'required|string',
-            'zone_id' => 'required',
+            'first_name' => 'required|string|max:125',
+            'last_name' => 'required|string|max:125',
+            'username' => 'required|string',
+            'dob' => 'required',
+            'gender' => 'required',
+            'country' => 'required',
+            'branch' => 'required',
         ]);
 
-        $username = strtolower($request->firstname . $request->lastname);
-
-        $alreadyexists = User::where('username', $username)->count();
-
-        if ($alreadyexists > 0) {
-            $alreadyexists++;
-            $username = $username.$alreadyexists;
+        $imageName ="";
+        $imglength = (float)(strlen(request('photo')));
+        if($imglength > 500){
+            $imageName = $this->generateImage(request('photo'));
+        }elseif($imglength == 0){
+            $imageName = 'noimage.png';
+        }else{
+            $imageName = request('photo');
         }
 
+        // $username = strtolower($request->firstname . $request->lastname);
+
+        // $alreadyexists = User::where('username', $username)->count();
+
+        // if ($alreadyexists > 0) {
+        //     $alreadyexists++;
+        //     $username = $username.$alreadyexists;
+        // }
+
+        $psd = uniqid();
+
+        $generated_password = Hash::make($psd);
+
         return User::create([
-            'firstname' => $request->firstname,
-            'lastname' => $request->lastname,
-            'username' => strtolower($request->firstname . $request->lastname),
-            'role' => $request->role,
-            'zone_id' => $request->zone_id,
-            'created_by' => $request->user()->username,
+            'first_name' => $request->firstname,
+            'last_name' => $request->lastname,
+            'username' => $request->username,
+            'dob' => $request->dob,
+            'gender' => $request->gender,
+            'country' => $request->country,
+            'branch' => $request->branch,
+            'photo' => $request->photo,
+            'is_active' => $request->is_active,
+            'approval_status' => $request->approval_status,
+            'decline_reason' => $request->approval_status,
+            'created_by' => $request->user(),
             // 'password' => Hash::make(uniqid()),
-            'password' =>'$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', //password
+            'password' => $generated_password,
+            'photo' => $imageName
         ]);
     }
 
-    public function update_all(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'firstname' => 'required|string',
-            'lastname' => 'required|string',
-            'role' => 'required|integer',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
             'username' => 'required|string|unique:users,username,' . $id,
+            'dob' => 'required',
+            'gender' => 'required',
+            'country' => 'required',
+            'branch' => 'required'
         ]);
+
+        $imageName ="";
+        $imglength = (float)(strlen(request('photo')));
+        if($imglength > 500){
+            $imageName = $this->generateImage(request('photo'));
+        }elseif($imglength == 0){
+            $imageName = 'noimage.png';
+        }else{
+            $imageName = request('photo');
+        }
 
         $user = User::findOrFail($id);
 
-        $user->firstname = $request->firstname;
-        $user->lastname = $request->lastname;
-        $user->role = $request->role;
-        $user->zone_id = $request->zone_id;
-        $user->created_by = $request->user()->username;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
         $user->username = $request->username;
+        $user->dob = $request->dob;
+        $user->is_active = $request->is_active;
+        $user->approval_status = $request->approval_status;
+        $user->decline_reason = $request->decline_reason;
+        $user->created_by = $request->created_by;
+        $user->photo = $imageName;
 
         if ($user->save()) {
             return $user;
@@ -147,6 +187,12 @@ class AuthController extends Controller
 
         $res = array("isSuccess" => true, 'access_token' => $token);
         return response()->json($res);
+    }
+    public function get_otp()
+    {
+        $otp = mt_rand(111111, 999999);
+
+        return $otp;
     }
 
     public function get_roles()
@@ -255,5 +301,15 @@ class AuthController extends Controller
         if ($user->forceDelete()) {
             return $user;
         }
+    }
+
+    public function generateImage($img)
+    {
+        $image_parts = explode(";base64,", $img);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1];
+        $imageName = time().'.png';
+        \Storage::disk('uploaded_images')->put($imageName, base64_decode($image_parts[1]));
+        return $imageName;
     }
 }

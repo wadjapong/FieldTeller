@@ -34,6 +34,8 @@ class CreateMerchantsTable extends Migration
             $table->string('settlement_account_network');
             $table->string('settlement_account_number');
             $table->boolean('is_active')->default(false);
+            $table->enum('approval_status', ['pending', 'accepted', 'declined']);
+            $table->string('decline_reason')->nullable();
 
             $table->foreign('parent_id')->references('id')->on('merchants');
             $table->bigInteger('creator_id')->unsigned();

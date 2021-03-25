@@ -33,6 +33,8 @@ class CreateFieldTellersTable extends Migration
             $table->decimal('cash_carrying_limit', 10, 2);
             $table->enum('float_source', ['momo', 'float']);
             $table->boolean('is_active')->default(false);
+            $table->enum('approval_status', ['pending', 'accepted', 'declined']);
+            $table->string('decline_reason')->nullable();
 
             $table->foreign('parent_id')->references('id')->on('field_tellers');
             $table->bigInteger('creator_id')->unsigned();

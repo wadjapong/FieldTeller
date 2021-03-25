@@ -12,7 +12,7 @@ class MerchantSettlements extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function merchant(): BelongsTo
+    public function merchant()
     {
         return $this->belongsTo(Merchants::class, 'merchant_id', 'id');
     }
@@ -22,7 +22,7 @@ class MerchantSettlements extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }

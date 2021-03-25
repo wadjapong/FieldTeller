@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'username', 'password', 'dob', 'gender', 'email', 'phone', 'country', 'branch', 'photo', 'is_active'
+        'first_name', 'last_name', 'username', 'password', 'dob', 'gender', 'email', 'phone', 'country', 'branch', 'photo', 'is_active', 'approval_status',
     ];
 
     /**
@@ -45,7 +45,7 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function creator(): BelongsTo
+    public function creator()
     {
         return $this->belongsTo(User::class, 'creator_id', 'id');
     }
@@ -55,8 +55,10 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function approver(): BelongsTo
+    public function approver()
     {
         return $this->belongsTo(User::class, 'approver_id', 'id');
     }
+
+
 }

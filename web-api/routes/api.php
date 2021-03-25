@@ -28,18 +28,16 @@ Route::prefix('v1')->group(function () {
             Route::post('create', 'Api\v1\RolesController@store');
             Route::delete('remove/{id}', 'Api\v1\RolesController@destroy');
             Route::put('edit/{id}', 'Api\v1\RolesController@store'); 
-            Route::post('assign_permissions', 'Api\v1\RolePermissionsController@store'); 
-            Route::post('assign_user', 'Api\v1\UserRolesController@store'); 
+            Route::post('assign', 'Api\v1\UserRolesController@store'); 
             Route::get('user_role/get', 'Api\v1\UserRolesController@index');
 
             Route::prefix('permissions')->group(function () {
                 // Route::post('assign', 'Api\v1\RolePermissionsController@store');
-                Route::get('get', 'Api\v1\RolePermissionsController@index');
+                Route::post('assign', 'Api\v1\RolePermissionsController@store'); 
+            Route::get('get/{role_id}', 'Api\v1\RolePermissionsController@index');
             }); 
-
-            Route::get('get_permissions', 'Api\v1\UserPermissionsController@index');
         });
-        // Route::get('permissions/all', 'Api\v1\UserPermissionsController@index');
+        Route::get('permissions/get', 'Api\v1\UserPermissionsController@index');
     });
 
     //A User
