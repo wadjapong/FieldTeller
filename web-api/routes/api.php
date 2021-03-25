@@ -24,10 +24,11 @@ Route::prefix('v1')->group(function () {
         Route::get('get/all', 'Api\v1\AuthController@get_both_users');
 
         Route::prefix('roles')->group(function () {
-            Route::get('get', 'Api\v1\RolesController@index');
+            Route::get('get/{user_type}', 'Api\v1\RolesController@index');
             Route::post('create', 'Api\v1\RolesController@store');
             Route::delete('remove/{id}', 'Api\v1\RolesController@destroy');
             Route::put('edit/{id}', 'Api\v1\RolesController@store'); 
+            Route::put('approve/{id}', 'Api\v1\RolesController@store'); 
             Route::post('assign', 'Api\v1\UserRolesController@store'); 
             Route::get('user_role/get', 'Api\v1\UserRolesController@index');
 

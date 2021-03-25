@@ -79,8 +79,8 @@ class FieldTellersController extends Controller
         $ft->email = $request->input('email');
         $ft->topup_discount = $request->input('topup_discount');
         $ft->is_active = $request->input('is_active');
-        $dist->approval_status = $request->input('approval_status');
-        $dist->decline_reason = $request->input('decline_reason');
+        $ft->approval_status = $request->input('approval_status');
+        $ft->decline_reason = $request->input('decline_reason');
         $ft->creator_id = $request->user();
         $ft->approver_id = $request->input('approver_id');
 

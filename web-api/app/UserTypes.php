@@ -16,8 +16,18 @@ class UserTypes extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function role(): HasOne
+    public function role()
     {
         return $this->hasOne(Role::class, 'id', 'role_permission_id');
+    }
+
+    /**
+     * Get the user that owns the UserTypes
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

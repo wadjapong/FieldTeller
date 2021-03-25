@@ -45,10 +45,15 @@ class RolePermissionsController extends Controller
         
         foreach($request->permissions as $permission_id) {
             $obj = new RolePermissions;
-            $count = RolePermissions::where('role_id', $request->input('role_id'))->where('permission_id', $permission_id)->count();
-            if ($count == 0) {
+            $exists = RolePermissions::where('role_id', $request->input('role_id'))
+            ->where('permission_id', $permission_id)
+            ->where('approval_status', 'accepted')
+            ->count();
+            if ($exists == 0) {
                 $obj->role_id = $request->input('role_id');
                 $obj->permission_id = $permission_id;
+                $obj->approval_status = $request->input('approval_status');
+                $obj->decline_reason = $request->input('decline_reason');
                 $obj->save();
             }
         }

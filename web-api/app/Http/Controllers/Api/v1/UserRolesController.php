@@ -49,8 +49,8 @@ class UserRolesController extends Controller
         
         $obj->user_id = $request->input('user_id');
         $obj->role_id = $request->input('role_id');
-        $dist->approval_status = $request->input('approval_status');
-        $dist->decline_reason = $request->input('decline_reason');
+        $obj->approval_status = $request->input('approval_status');
+        $obj->decline_reason = $request->input('decline_reason');
 
         if ($obj->save()) {
             return new UserRolesResource($obj);

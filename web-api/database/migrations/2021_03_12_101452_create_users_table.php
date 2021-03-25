@@ -30,6 +30,7 @@ class CreateUsersTable extends Migration
             $table->boolean('is_active')->default(false);
             $table->enum('approval_status', ['pending', 'accepted', 'declined']);
             $table->string('decline_reason')->nullable();
+            $table->string('user_group');
 
             $table->bigInteger('creator_id')->unsigned();
             // $table->foreign('creator_id')->references('id')->on('users');
@@ -39,6 +40,9 @@ class CreateUsersTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+
+        $data = $this->getData();
+        \DB::table('users')->insert($data);
     }
 
     /**
@@ -49,5 +53,26 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+    }
+
+    public function getData() {
+        $data = [
+            ['prefix'=> 'sys', 
+            'first_name'=> 'System', 
+            'last_name'=> 'Super User',
+            'username'=> 'systemsuperuser', 
+            'password'=> '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 
+            'dob'=> date('Y-m-d'), 
+            'gender'=> 'male', 
+            'email'=> 'email@email.com', 
+            'phone'=> '0000000000', 
+            'country'=> 'ghana', 
+            'branch'=> 'head-office', 
+            'is_active'=> true, 
+            'approval_status'=> 'accepted', 
+            'user_group'=> 'system_user', 
+            'creator_id'=> '1'],
+        ];
+        return $data;
     }
 }

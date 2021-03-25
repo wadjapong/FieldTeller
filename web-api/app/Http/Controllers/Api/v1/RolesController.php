@@ -14,9 +14,9 @@ class RolesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($user_type)
     {
-        $roles = Roles::all();
+        $roles = Roles::with(['creator', 'approver'])->where('user_type', $user_type)->get();
         return new RoleResource($roles);
     }
 
@@ -46,8 +46,11 @@ class RolesController extends Controller
         Roles::findOrFail($request->input('id')) : new Roles;
 
         $role->name = $request->input('name');
-        $dist->approval_status = $request->input('approval_status');
-        $dist->decline_reason = $request->input('decline_reason');
+        $role->user_type = $request->input('user_type');
+        $role->approval_status = $request->input('approval_status');
+        $role->decline_reason = $request->input('decline_reason');
+        $role->creator_id = $request->input('creator_id');
+        $role->approver_id = $request->input('approver_id');
 
         if ($role->save()) {
             return new RoleResource($role);
@@ -96,10 +99,10 @@ class RolesController extends Controller
      */
     public function destroy($id)
     {
-        // $role = Roles::findOrFail($id);
+        $role = Roles::findOrFail($id);
 
-        // if ($role->delete()) {
-        //     return new RoleResource($role);
-        // }
+        if ($role->delete()) {
+            return new RoleResource($role);
+        }
     }
 }

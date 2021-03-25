@@ -48,8 +48,8 @@ class UserTypesController extends Controller
 
         $type->name = $request->input('name');
         $type->permission_id = $request->input('permission_id');
-        $dist->approval_status = $request->input('approval_status');
-        $dist->decline_reason = $request->input('decline_reason');
+        $type->approval_status = $request->input('approval_status');
+        $type->decline_reason = $request->input('decline_reason');
 
         if ($type->save()) {
             return new UserTypesResource($type);
